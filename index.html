@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ramazan Perdebay — Software Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: oklch(0.97 0.006 80);
+    --bg-2: oklch(0.94 0.008 80);
+    --ink: oklch(0.20 0.012 70);
+    --ink-2: oklch(0.42 0.012 70);
+    --ink-3: oklch(0.60 0.012 70);
+    --rule: oklch(0.86 0.01 75);
+    --accent: oklch(0.56 0.16 35);
+    --accent-soft: oklch(0.92 0.04 35);
+    --serif: "Instrument Serif", "Times New Roman", serif;
+    --sans: "Geist", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  body{font-size:16px;line-height:1.55;font-weight:400;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--accent);color:var(--bg)}
+
+  /* ----- LAYOUT SHELL ----- */
+  .wrap{max-width:1240px;margin:0 auto;padding:0 48px}
+  @media (max-width:720px){.wrap{padding:0 24px}}
+
+  /* ----- NAV ----- */
+  nav.top{position:fixed;top:0;left:0;right:0;z-index:50;background:color-mix(in srgb, var(--bg) 78%, transparent);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid transparent;transition:border-color .3s ease}
+  nav.top.scrolled{border-bottom-color:var(--rule)}
+  nav.top .row{display:flex;align-items:center;justify-content:space-between;height:64px}
+  nav.top .brand{font-family:var(--mono);font-size:13px;letter-spacing:.02em;color:var(--ink);display:flex;align-items:center;gap:10px}
+  nav.top .brand .dot{width:8px;height:8px;border-radius:99px;background:var(--accent);display:inline-block;box-shadow:0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent);animation:pulse 2.4s ease-out infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb, var(--accent) 50%, transparent)}80%,100%{box-shadow:0 0 0 10px transparent}}
+  nav.top ul{list-style:none;display:flex;gap:28px}
+  nav.top ul a{font-size:13px;color:var(--ink-2);position:relative;padding:6px 0;transition:color .2s ease}
+  nav.top ul a:hover{color:var(--ink)}
+  nav.top ul a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:0;background:var(--ink);transition:width .25s ease}
+  nav.top ul a:hover::after{width:100%}
+  @media (max-width:720px){nav.top ul{display:none}}
+
+  /* ----- LANG SWITCHER ----- */
+  .lang-switcher{display:flex;gap:2px;align-items:center}
+  .lang-switcher button{font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--ink-3);background:none;border:none;padding:4px 8px;cursor:pointer;border-radius:4px;transition:color .2s ease, background .2s ease}
+  .lang-switcher button:hover{color:var(--ink)}
+  .lang-switcher button.active{color:var(--ink);background:var(--bg-2)}
+
+  /* ----- HERO ----- */
+  header.hero{padding:160px 0 100px;position:relative}
+  .hero .eyebrow{font-family:var(--mono);font-size:12px;color:var(--ink-3);letter-spacing:.04em;text-transform:uppercase;display:flex;align-items:center;gap:14px;margin-bottom:36px}
+  .hero .eyebrow .bar{height:1px;width:40px;background:var(--ink-3)}
+  .hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(64px, 11vw, 168px);line-height:.92;letter-spacing:-.02em;margin-bottom:24px}
+  .hero h1 .it{font-style:italic;color:var(--accent)}
+  .hero .reveal-word{display:inline-block;overflow:hidden;vertical-align:bottom}
+  .hero .reveal-word > span{display:inline-block;transform:translateY(110%);animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards}
+  @keyframes rise{to{transform:translateY(0)}}
+  .hero .sub{display:grid;grid-template-columns:1.4fr 1fr;gap:48px;margin-top:48px;align-items:end}
+  @media (max-width:860px){.hero .sub{grid-template-columns:1fr;gap:32px}}
+  .hero .role{font-family:var(--serif);font-style:italic;font-size:28px;color:var(--ink-2);line-height:1.3;max-width:520px}
+  .hero .role em{color:var(--ink);font-style:italic}
+  .hero .meta{font-family:var(--mono);font-size:12px;color:var(--ink-3);display:flex;flex-direction:column;gap:8px;align-items:flex-end;text-align:right}
+  @media (max-width:860px){.hero .meta{align-items:flex-start;text-align:left}}
+  .hero .meta .row{display:flex;gap:10px;align-items:center}
+  .hero .meta .row .k{color:var(--ink-3)}
+  .hero .meta .row .v{color:var(--ink)}
+  .hero .meta .status{display:inline-flex;align-items:center;gap:8px;color:var(--ink)}
+  .hero .meta .status::before{content:"";width:6px;height:6px;border-radius:99px;background:#26a269;box-shadow:0 0 0 3px color-mix(in srgb,#26a269 25%, transparent)}
+
+  .hero .links{margin-top:80px;display:flex;flex-wrap:wrap;gap:0;border-top:1px solid var(--rule)}
+  .hero .links a{flex:1;min-width:180px;padding:24px 0;display:flex;align-items:center;gap:14px;border-right:1px solid var(--rule);font-family:var(--mono);font-size:13px;color:var(--ink-2);transition:color .2s ease, padding .2s ease;position:relative;overflow:hidden}
+  .hero .links a:last-child{border-right:none}
+  .hero .links a:hover{color:var(--ink);padding-left:14px}
+  .hero .links a .arrow{margin-left:auto;transition:transform .25s ease}
+  .hero .links a:hover .arrow{transform:translate(4px,-4px)}
+  @media (max-width:720px){.hero .links a{min-width:50%;border-bottom:1px solid var(--rule)}.hero .links a:nth-child(2n){border-right:none}}
+
+  /* ----- SECTION CHROME ----- */
+  section{padding:120px 0;border-top:1px solid var(--rule);position:relative}
+  .sec-head{display:grid;grid-template-columns:200px 1fr;gap:40px;margin-bottom:64px;align-items:baseline}
+  @media (max-width:720px){.sec-head{grid-template-columns:1fr;gap:16px;margin-bottom:40px}}
+  .sec-head .num{font-family:var(--mono);font-size:12px;color:var(--ink-3);letter-spacing:.04em}
+  .sec-head .title{font-family:var(--serif);font-weight:400;font-size:clamp(36px,5vw,64px);line-height:1;letter-spacing:-.01em}
+  .sec-head .title em{font-style:italic;color:var(--accent)}
+
+  /* ----- HIGHLIGHTS ----- */
+  .highlights{display:grid;grid-template-columns:repeat(3, 1fr);gap:0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+  @media (max-width:720px){.highlights{grid-template-columns:1fr}}
+  .stat{padding:40px 32px;border-right:1px solid var(--rule);position:relative;overflow:hidden}
+  .stat:last-child{border-right:none}
+  @media (max-width:720px){.stat{border-right:none;border-bottom:1px solid var(--rule)}.stat:last-child{border-bottom:none}}
+  .stat .n{font-family:var(--serif);font-size:clamp(56px,6.4vw,96px);line-height:1;letter-spacing:-.02em;color:var(--ink);white-space:nowrap}
+  .stat .n .suffix{font-family:var(--sans);font-size:32px;color:var(--ink-2);margin-left:4px;vertical-align:top;position:relative;top:14px}
+  .stat .label{font-family:var(--mono);font-size:12px;color:var(--ink-3);letter-spacing:.04em;text-transform:uppercase;margin-top:18px}
+
+  /* ----- EXPERIENCE ----- */
+  .xp{display:grid;grid-template-columns:200px 1fr;gap:40px}
+  @media (max-width:720px){.xp{grid-template-columns:1fr;gap:12px}}
+  .xp + .xp{padding-top:48px;margin-top:48px;border-top:1px dashed var(--rule)}
+  .xp .when{font-family:var(--mono);font-size:12px;color:var(--ink-3);padding-top:8px}
+  .xp .when .live{color:var(--accent);display:inline-flex;align-items:center;gap:6px}
+  .xp .when .live::before{content:"";width:6px;height:6px;border-radius:99px;background:var(--accent)}
+  .xp .co{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:4px}
+  .xp .co h3{font-family:var(--serif);font-size:36px;font-weight:400;line-height:1.05;letter-spacing:-.01em}
+  .xp .co .loc{font-family:var(--mono);font-size:12px;color:var(--ink-3)}
+  .xp .role-line{font-size:16px;color:var(--ink-2);margin-bottom:20px}
+  .xp .role-line .tag{display:inline-block;font-family:var(--mono);font-size:11px;padding:2px 8px;border:1px solid var(--rule);border-radius:99px;color:var(--ink-2);margin-left:8px;vertical-align:middle}
+  .xp ul.bullets{list-style:none;display:flex;flex-direction:column;gap:14px;max-width:760px}
+  .xp ul.bullets li{display:flex;gap:14px;font-size:15.5px;color:var(--ink);line-height:1.55}
+  .xp ul.bullets li::before{content:"";flex:0 0 6px;width:6px;height:6px;border-radius:99px;background:var(--ink);margin-top:10px}
+
+  /* ----- AWARDS ----- */
+  .awards{display:flex;flex-direction:column}
+  .award{display:grid;grid-template-columns:120px 1fr auto;gap:32px;padding:28px 0;border-top:1px solid var(--rule);align-items:center;cursor:default;position:relative;transition:padding .3s ease}
+  .award:last-child{border-bottom:1px solid var(--rule)}
+  .award:hover{padding-left:14px}
+  .award:hover .a-title{color:var(--accent)}
+  .award .year{font-family:var(--mono);font-size:13px;color:var(--ink-3)}
+  .award .a-title{font-family:var(--serif);font-size:clamp(22px,2.4vw,32px);line-height:1.15;font-weight:400;transition:color .25s ease}
+  .award .a-title small{font-family:var(--sans);font-size:14px;color:var(--ink-3);display:block;margin-top:6px;letter-spacing:.01em}
+  .award .medal{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border:1px solid var(--ink);border-radius:99px;color:var(--ink);white-space:nowrap}
+  .award .medal.gold{background:#caa341;color:#1a1408;border-color:#caa341}
+  .award .medal.silver{background:#c8c8c8;color:#1a1a1a;border-color:#c8c8c8}
+  .award .medal.bronze{background:#b6743a;color:#1a0d04;border-color:#b6743a}
+  .award .medal.champ{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+  @media (max-width:720px){
+    .award{grid-template-columns:1fr;gap:8px}
+    .award .medal{justify-self:start}
+  }
+
+  /* ----- PROJECTS ----- */
+  .projects{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+  @media (max-width:720px){.projects{grid-template-columns:1fr}}
+  .proj{padding:36px 32px;border:1px solid var(--rule);background:color-mix(in srgb, var(--bg-2) 60%, transparent);position:relative;overflow:hidden;transition:border-color .25s ease, transform .35s ease}
+  .proj:hover{border-color:var(--ink)}
+  .proj .ptag{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.04em;text-transform:uppercase}
+  .proj h3{font-family:var(--serif);font-size:40px;font-weight:400;letter-spacing:-.01em;margin-top:12px;margin-bottom:14px;line-height:1.05}
+  .proj p{font-size:15.5px;color:var(--ink-2);max-width:520px;margin-bottom:28px}
+  .proj .stack{display:flex;flex-wrap:wrap;gap:6px}
+  .proj .stack span{font-family:var(--mono);font-size:11px;padding:4px 10px;border:1px solid var(--rule);border-radius:4px;color:var(--ink-2);background:var(--bg)}
+  .proj .glow{position:absolute;inset:auto -40% -60% auto;width:340px;height:340px;border-radius:50%;background:radial-gradient(closest-side, color-mix(in srgb, var(--accent) 18%, transparent), transparent 70%);opacity:0;transition:opacity .35s ease}
+  .proj:hover .glow{opacity:1}
+
+  /* ----- SKILLS ----- */
+  .skills{display:grid;grid-template-columns:repeat(4, 1fr);gap:0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+  @media (max-width:860px){.skills{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:560px){.skills{grid-template-columns:1fr}}
+  .skill-col{padding:32px;border-right:1px solid var(--rule)}
+  .skill-col:last-child{border-right:none}
+  @media (max-width:860px){.skill-col:nth-child(2n){border-right:none}.skill-col{border-bottom:1px solid var(--rule)}}
+  .skill-col h4{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:20px;font-weight:500}
+  .skill-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+  .skill-col ul li{font-family:var(--serif);font-size:24px;line-height:1.15;color:var(--ink);position:relative;padding-left:0;transition:padding .2s ease, color .2s ease;cursor:default}
+  .skill-col ul li:hover{padding-left:14px;color:var(--accent)}
+  .skill-col ul li:hover::before{content:"→";position:absolute;left:-4px;font-family:var(--mono);color:var(--accent)}
+
+  /* ----- CONTACT ----- */
+  footer.contact{padding:140px 0 80px;border-top:1px solid var(--rule)}
+  .contact .big{font-family:var(--serif);font-size:clamp(48px,8vw,128px);line-height:.95;letter-spacing:-.02em;max-width:1100px}
+  .contact .big em{font-style:italic;color:var(--accent)}
+  .contact .big a.under{position:relative;display:inline-block}
+  .contact .big a.under::after{content:"";position:absolute;left:0;right:0;bottom:8px;height:2px;background:var(--ink);transform-origin:left;transform:scaleX(1);transition:transform .35s ease}
+  .contact .big a.under:hover::after{transform-origin:right;transform:scaleX(0)}
+  .contact .grid{margin-top:96px;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;border-top:1px solid var(--rule);padding-top:32px;align-items:start}
+  @media (max-width:720px){.contact .grid{grid-template-columns:repeat(2,1fr)}}
+  .contact .grid .col h5{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px;font-weight:500}
+  .contact .grid .col a, .contact .grid .col p{font-size:14px;color:var(--ink);display:block;line-height:1.5}
+  .contact .grid .col a:hover{color:var(--accent)}
+  .contact .signoff{margin-top:80px;display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.04em}
+  @media (max-width:560px){.contact .signoff{flex-direction:column;gap:12px;align-items:flex-start}}
+
+  /* ----- REVEAL ANIMATION ----- */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  .reveal-stagger > *{opacity:0;transform:translateY(18px);transition:opacity .7s ease, transform .7s ease}
+  .reveal-stagger.in > *{opacity:1;transform:none}
+  .reveal-stagger.in > *:nth-child(1){transition-delay:.05s}
+  .reveal-stagger.in > *:nth-child(2){transition-delay:.12s}
+  .reveal-stagger.in > *:nth-child(3){transition-delay:.19s}
+  .reveal-stagger.in > *:nth-child(4){transition-delay:.26s}
+  .reveal-stagger.in > *:nth-child(5){transition-delay:.33s}
+  .reveal-stagger.in > *:nth-child(6){transition-delay:.40s}
+  .reveal-stagger.in > *:nth-child(7){transition-delay:.47s}
+  .reveal-stagger.in > *:nth-child(8){transition-delay:.54s}
+
+  /* progress bar at top */
+  .progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--accent);z-index:60;transition:width .1s linear}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none!important;transition:none!important}
+    .reveal,.reveal-stagger > *{opacity:1!important;transform:none!important}
+  }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<nav class="top" id="topnav">
+  <div class="wrap row">
+    <a href="#top" class="brand"><span class="dot"></span>RAMAZAN&nbsp;PERDEBAY</a>
+    <ul>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#awards">Awards</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="lang-switcher">
+      <button onclick="setLang('en')" data-lang="en" class="active">EN</button>
+      <button onclick="setLang('ru')" data-lang="ru">RU</button>
+      <button onclick="setLang('kz')" data-lang="kz">KZ</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero wrap" id="top">
+  <div class="eyebrow"><span class="bar"></span>Astana, Kazakhstan · Available Sep 2026</div>
+  <h1>
+    <span class="reveal-word"><span style="animation-delay:.05s">Software</span></span>
+    <span class="reveal-word"><span style="animation-delay:.15s">engineer</span></span><br>
+    <span class="reveal-word"><span style="animation-delay:.25s">&amp;&nbsp;</span></span><span class="it reveal-word"><span style="animation-delay:.35s">competitive</span></span>
+    <br>
+    <span class="it reveal-word"><span style="animation-delay:.45s">programmer.</span></span>
+  </h1>
+
+  <div class="sub">
+    <p class="role">
+      I build reliable backend systems in <em>C++</em> and <em>Java</em>, design clean data layers from scratch, and spend my evenings solving hard algorithmic problems.
+    </p>
+    <div class="meta">
+      <div class="row"><span class="k">CURRENTLY</span><span class="v">Information Systems, KBTU</span></div>
+      <div class="row"><span class="k">NEXT</span><span class="v">Revolut · Dubai · Jun 26</span></div>
+    </div>
+  </div>
+
+  <div class="links">
+    <a href="mailto:ramazan131005@gmail.com">Email <span class="arrow">↗</span></a>
+    <a href="#" data-link="github">GitHub <span class="arrow">↗</span></a>
+    <a href="#" data-link="linkedin">LinkedIn <span class="arrow">↗</span></a>
+    <a href="#" data-link="codeforces">Codeforces <span class="arrow">↗</span></a>
+    <a href="tel:+77476688176">+7 747 66 88 176 <span class="arrow">↗</span></a>
+  </div>
+</header>
+
+<!-- HIGHLIGHTS -->
+<section id="highlights" style="padding-top:60px;padding-bottom:0;border-top:none">
+  <div class="wrap">
+    <div class="highlights reveal-stagger">
+      <div class="stat">
+        <div class="n" data-count="2"><span>0</span><span class="suffix">×</span></div>
+        <div class="label">ICPC Northern Eurasia Regionals Champion · 2024, 2025</div>
+      </div>
+      <div class="stat">
+        <div class="n"><span>ex-Yandex</span></div>
+        <div class="label">Backend Intern · userver · 2025</div>
+      </div>
+      <div class="stat">
+        <div class="n"><span>Revolut</span><span class="suffix">↗</span></div>
+        <div class="label">Incoming SWE Intern · Dubai · Jun 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="work">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="num">/01 — EXPERIENCE</div>
+      <h2 class="title">Where I've <em>shipped</em>.</h2>
+    </div>
+
+    <div class="xp reveal">
+      <div class="when"><span class="live">Jun – Sep 2026</span></div>
+      <div>
+        <div class="co"><h3>Revolut</h3><span class="loc">Dubai, UAE</span></div>
+        <div class="role-line">Java Software Engineer Intern <span class="tag">Upcoming</span></div>
+      </div>
+    </div>
+
+    <div class="xp reveal">
+      <div class="when">Aug – Dec 2025</div>
+      <div>
+        <div class="co"><h3>Medprice.kz</h3><span class="loc">Remote</span></div>
+        <div class="role-line">PHP Backend Developer</div>
+        <ul class="bullets">
+          <li>Engineered an NLP-driven medication name matching pipeline in PHP, eliminating <strong>100+ hours</strong> of manual reconciliation across supplier catalogs.</li>
+          <li>Built an inbox-to-database price-list ingestion workflow (download → parse → validate), standardizing supplier price updates.</li>
+          <li>Designed a high-throughput data quality audit that validated <strong>20,000+ mappings</strong> and surfaced 100+ critical mismatches, preventing downstream pricing errors.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="xp reveal">
+      <div class="when">Jan – May 2025</div>
+      <div>
+        <div class="co"><h3>Yandex Pro</h3><span class="loc">Driver &amp; Courier app</span></div>
+        <div class="role-line">Backend Developer Intern</div>
+        <ul class="bullets">
+          <li>Developed production HTTP APIs in <strong>C++17 (userver)</strong> and Python for a microservice platform.</li>
+          <li>Built registration / login flows including authorization-code delivery via Telegram and Viber.</li>
+          <li>Implemented driver chat &amp; messenger-service improvements (schemas, endpoints, bot support).</li>
+          <li>Improved reliability through bug fixes and automated tests in userver-based services.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="xp reveal">
+      <div class="when">Aug – Dec 2024</div>
+      <div>
+        <div class="co"><h3>Master Assistant</h3><span class="loc">Startup · Founding Eng.</span></div>
+        <div class="role-line">Founding Engineer</div>
+        <ul class="bullets">
+          <li>Developed a Python agent runtime using <strong>Google ADK</strong> and a Flask-based gateway service integrating with GraphQL.</li>
+          <li>Integrated WhatsApp via the Facebook Graph API and containerized services with Docker.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AWARDS -->
+<section id="awards">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="num">/02 — AWARDS</div>
+      <h2 class="title">A decade of <em>medals</em>.</h2>
+    </div>
+
+    <div class="awards reveal-stagger">
+      <div class="award">
+        <div class="year">2024–25</div>
+        <div class="a-title">ICPC Northern Eurasia Regionals — Two-time Champion
+          <small>1st of 180 · 1st of 163</small>
+        </div>
+        <div class="medal champ">Champion ×2</div>
+      </div>
+      <div class="award">
+        <div class="year">2025</div>
+        <div class="a-title">ICPC Northern Eurasia Finals
+          <small>36th of 317 · II degree diploma</small>
+        </div>
+        <div class="medal silver">Silver</div>
+      </div>
+      <div class="award">
+        <div class="year">2024</div>
+        <div class="a-title">ICPC Northern Eurasia Finals
+          <small>61st of 306 · III degree diploma</small>
+        </div>
+        <div class="medal bronze">Bronze</div>
+      </div>
+      <div class="award">
+        <div class="year">2022</div>
+        <div class="a-title">Eurasian Olympiad in Informatics
+          <small>Gold medal</small>
+        </div>
+        <div class="medal gold">Gold</div>
+      </div>
+      <div class="award">
+        <div class="year">2021–23</div>
+        <div class="a-title">International Zhautykov Olympiad
+          <small>Silver (75 / 374), Bronze (2021, 2022)</small>
+        </div>
+        <div class="medal silver">Silver · Bronze</div>
+      </div>
+      <div class="award">
+        <div class="year">2020–23</div>
+        <div class="a-title">Republican Olympiad in Informatics
+          <small>2× Gold, 2× Silver</small>
+        </div>
+        <div class="medal gold">Gold ×2</div>
+      </div>
+      <div class="award">
+        <div class="year">2020</div>
+        <div class="a-title">European Junior Olympiad in Informatics
+          <small>Bronze medal</small>
+        </div>
+        <div class="medal bronze">Bronze</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="num">/03 — PROJECTS</div>
+      <h2 class="title">Things I've <em>built</em>.</h2>
+    </div>
+
+    <div class="projects reveal-stagger">
+      <article class="proj">
+        <div class="glow"></div>
+        <div class="ptag">Web · Full-stack</div>
+        <h3>Dari‑Al</h3>
+        <p>Full-stack online pharmacy (Next.js 19 / Java Javalin) with SMS OTP auth, JWT-secured REST API, and a multi-supplier catalog engine that auto-selects the cheapest supplier per product using configurable markup ranges loaded from Excel.</p>
+        <p>Designed the backend from scratch without ORM or framework bloat — raw JDBC + HikariCP pool + Flyway versioned migrations (22 migrations) on PostgreSQL. Clean layered architecture: controllers → services → repositories, covered by JUnit 5 + Mockito.</p>
+        <p>End-to-end order lifecycle — catalog → cart → checkout → payment → admin order management — plus a full admin panel for suppliers, medicaments, users and pricing, built on React 19 + Tailwind v4 + Radix UI with Zod-validated forms and a Vitest test suite.</p>
+        <div class="stack"><span>Next.js 19</span><span>Java · Javalin</span><span>PostgreSQL</span><span>JDBC + HikariCP</span><span>Flyway</span><span>JUnit 5</span><span>Mockito</span><span>React 19</span><span>Tailwind v4</span><span>Radix UI</span><span>Zod</span><span>Vitest</span></div>
+      </article>
+      <article class="proj">
+        <div class="glow"></div>
+        <div class="ptag">iOS · Native</div>
+        <h3>Flashcards Learning</h3>
+        <p>A native flashcards app for quick review sessions. Clean UI and navigation with small automation utilities for power users.</p>
+        <div class="stack"><span>Swift</span><span>iOS</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ACTIVITIES -->
+<section id="activities">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="num">/04 — ACTIVITIES</div>
+      <h2 class="title">Beyond the <em>day job</em>.</h2>
+    </div>
+
+    <div class="awards reveal-stagger">
+      <div class="award">
+        <div class="year">Ongoing</div>
+        <div class="a-title">IOI Training Coach
+          <small>Mentored students in algorithms &amp; data structures; ran trainings and IOI-style camps; prepared contest materials.</small>
+        </div>
+        <div class="medal">Mentorship</div>
+      </div>
+      <div class="award">
+        <div class="year">Ongoing</div>
+        <div class="a-title">Problemsetter
+          <small>Authored olympiad and contest problems for NOI, KBO, KBTU OPEN, Uzdik IT Ustaz, and others.</small>
+        </div>
+        <div class="medal">Authoring</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="num">/05 — STACK</div>
+      <h2 class="title">Tools of the <em>trade</em>.</h2>
+    </div>
+
+    <div class="skills reveal-stagger">
+      <div class="skill-col">
+        <h4>Languages</h4>
+        <ul>
+          <li>C++</li><li>Java</li><li>Python</li><li>PHP</li><li>SQL</li><li>Swift</li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <h4>Frameworks</h4>
+        <ul>
+          <li>userver</li><li>Spring</li><li>Laravel</li><li>Yii2</li><li>Flask</li><li>GraphQL</li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <h4>Infrastructure</h4>
+        <ul>
+          <li>PostgreSQL</li><li>Redis</li><li>Docker</li><li>Linux</li><li>Git</li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <h4>Languages spoken</h4>
+        <ul>
+          <li>Kazakh</li><li>Russian <small style="font-family:var(--mono);font-size:11px;color:var(--ink-3)">native</small></li><li>English <small style="font-family:var(--mono);font-size:11px;color:var(--ink-3)">C1</small></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<footer class="contact" id="contact">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="big">
+        Got something interesting to build?<br>
+        <em>Let's </em><a class="under" href="mailto:ramazan131005@gmail.com">talk.</a>
+      </p>
+    </div>
+
+    <div class="grid reveal">
+      <div class="col">
+        <h5>Email</h5>
+        <a href="mailto:ramazan131005@gmail.com">ramazan131005@gmail.com</a>
+      </div>
+      <div class="col">
+        <h5>Phone</h5>
+        <a href="tel:+77476688176">+7 747 66 88 176</a>
+      </div>
+      <div class="col">
+        <h5>Profiles</h5>
+        <a href="#" data-link="github">GitHub →</a>
+        <a href="#" data-link="codeforces">Codeforces →</a>
+        <a href="#" data-link="linkedin">LinkedIn →</a>
+      </div>
+      <div class="col">
+        <h5>Location</h5>
+        <p>Astana, Kazakhstan</p>
+        <p style="color:var(--ink-3);margin-top:4px">UTC+5 · open to relocation</p>
+      </div>
+    </div>
+
+    <div class="signoff">
+      <span>© 2026 · Ramazan Perdebay</span>
+      <span>Crafted with care · Updated May 2026</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Language switcher (translations wired up in step 3)
+  function setLang(lang) {
+    document.querySelectorAll('.lang-switcher button').forEach(b => {
+      b.classList.toggle('active', b.dataset.lang === lang);
+    });
+  }
+
+  // Top nav scroll state + progress bar
+  const nav = document.getElementById('topnav');
+  const progress = document.getElementById('progress');
+  function onScroll(){
+    const y = window.scrollY;
+    nav.classList.toggle('scrolled', y > 8);
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.width = (h > 0 ? (y / h) * 100 : 0) + '%';
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  // Intersection-observer reveal
+  const io = new IntersectionObserver((entries)=>{
+    for(const e of entries){
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    }
+  }, {threshold: 0.12, rootMargin: '0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => io.observe(el));
+
+  // Count-up for stats
+  const countIO = new IntersectionObserver((entries)=>{
+    for(const e of entries){
+      if(e.isIntersecting){
+        const el = e.target;
+        const target = parseInt(el.dataset.count, 10);
+        const span = el.querySelector('span:first-child');
+        const dur = 1400;
+        const start = performance.now();
+        function tick(t){
+          const p = Math.min(1, (t-start)/dur);
+          const eased = 1 - Math.pow(1-p, 3);
+          const v = Math.floor(target * eased);
+          span.textContent = v.toLocaleString();
+          if(p < 1) requestAnimationFrame(tick);
+          else span.textContent = target.toLocaleString();
+        }
+        requestAnimationFrame(tick);
+        countIO.unobserve(el);
+      }
+    }
+  }, {threshold: 0.4});
+  document.querySelectorAll('.n[data-count]').forEach(el => countIO.observe(el));
+
+  // Soft smooth anchor scroll for nav
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href');
+      if(id.length > 1){
+        const t = document.querySelector(id);
+        if(t){
+          e.preventDefault();
+          window.scrollTo({top: t.getBoundingClientRect().top + window.scrollY - 56, behavior: 'smooth'});
+        }
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
